@@ -4,15 +4,46 @@
            xmlns="https://www.snlab.org"
            elementFormDefault="qualified">
 
-    <xs:element name="note">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="to" type="xs:string"/>
-                <xs:element name="from" type="xs:string"/>
-                <xs:element name="heading" type="xs:string"/>
-                <xs:element name="body" type="xs:string"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="path">
+        <xs:sequence>
+            <xs:element name="hop" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
 
+    <xs:complexType name="args">
+        <xs:sequence>
+            <xs:element name="arg" minOccurs="0" maxOccurs="200" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="algorithm">
+        <xs:choice>
+            <xs:element name="simpleAlgorithm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string" />
+                        <xs:element name="args" type="args" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="customizedAlgorithm">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" type="xs:string" />
+                        <xs:element name="code" type="xs:string" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+
+    <xs:complexType name="behavior">
+        <xs:choice>
+            <xs:element name="path" type="path"></xs:element>
+            <xs:element name="algorithm" type="algorithm"></xs:element>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:integer" use="required" />
+    </xs:complexType>
+
+    <xs:element name="behavior" type="behavior" />
 </xs:schema>
