@@ -45,5 +45,29 @@
         <xs:attribute name="id" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:element name="behavior" type="behavior" />
+    <xs:complexType name="branch">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="condition" type="xs:string" />
+            <xs:choice>
+                <xs:element name="compounds">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="compound" minOccurs="1" maxOccurs="200">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="logic" type="xs:string" />
+                                        <xs:element name="branch" type="branch" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="behavior" type="behavior" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="branch" type="branch" />
 </xs:schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+
+<branch
+        xmlns="https://www.snlab.org"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.snlab.org visualprog.xsd">
+
+    <code>
+        a = 10;
+        b = 20;
+    </code>
+    <condition>
+        a < b
+    </condition>
+    <compounds>
+        <compound>
+            <logic>and</logic>
+            <branch>
+                <condition>a > 5</condition>
+                <behavior id="1">
+                    <algorithm>
+                        <simpleAlgorithm>
+                            <name>and</name>
+                            <args>
+                                <arg>a</arg>
+                                <arg>b</arg>
+                            </args>
+                        </simpleAlgorithm>
+                    </algorithm>
+                </behavior>
+            </branch>
+        </compound>
+        <compound>
+            <logic>or</logic>
+            <branch>
+                <condition>b > 25</condition>
+                <behavior id="2">
+                    <algorithm>
+                        <customizedAlgorithm>
+                            <name>substraction</name>
+                            <code>return a - b;</code>
+                        </customizedAlgorithm>
+                    </algorithm>
+                </behavior>
+            </branch>
+        </compound>
+    </compounds>
+</branch>
