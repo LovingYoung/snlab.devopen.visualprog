@@ -69,5 +69,17 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="branch" type="branch" />
+    <xs:complexType name="branchs">
+        <xs:sequence>
+            <xs:element name="branch" type="branch" minOccurs="1" maxOccurs="200" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="onPacket">
+        <xs:sequence>
+            <xs:element name="branchs" type="branchs" minOccurs="1" maxOccurs="200" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="onPacket" type="onPacket" />
 </xs:schema>
