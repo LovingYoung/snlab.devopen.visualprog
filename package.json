@@ -1,7 +1,7 @@
 {
   "name": "",
   "description": "This is a plugin for SNLab.devopen, to build a visual programming model for SDN Maple App",
-  "version": "0.0.1",
+  "version": "0.0.1-SNAPSHOT",
   "author": "SNLab",
   "contributors": [
     {
@@ -16,6 +16,6 @@
   "plugins": {
     "visualprog": {}
   },
-  "categories": ["miscellaneous"],
-  "licenses": []
+  "categories": ["miscellaneous", "SDN", "SNLab"],
+  "licenses": ["WTFPL"]
 }

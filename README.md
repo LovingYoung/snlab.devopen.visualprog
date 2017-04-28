@@ -1,1 +1,1 @@
-This is the Cloud9 simple plugin example
+This is a Cloud9 Plugin to help developers in visual programming SDN apps.
