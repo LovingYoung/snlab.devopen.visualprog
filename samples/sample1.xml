@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<onPacket
+        xmlns="https://www.snlab.org"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.snlab.org ../visualprog.xsd">
+    <branchs>
+        <branch>
+            <condition>pkt.dstPort == 80</condition>
+            <behavior id="1">
+                <path>
+                    <hop>openflow:1:1</hop>
+                    <hop>openflow:2:1</hop>
+                </path>
+            </behavior>
+        </branch>
+        <branch>
+            <condition>True</condition>
+            <behavior id="2">
+                <algorithm>
+                    <simpleAlgorithm>
+                        <name>drop</name>
+                        <args></args>
+                    </simpleAlgorithm>
+                </algorithm>
+            </behavior>
+        </branch>
+    </branchs>
+</onPacket>
