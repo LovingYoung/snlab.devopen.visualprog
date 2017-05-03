@@ -14,7 +14,8 @@
     "url": "https://github.com/LovingYoung/snlab.devopen.visualprog"
   },
   "plugins": {
-    "visualprog": {}
+    "visualprog": {},
+    "static": {}
   },
   "categories": ["miscellaneous", "SDN", "SNLab"],
   "licenses": ["WTFPL"]

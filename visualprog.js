@@ -1,41 +1,26 @@
-define(function(require, exports, module) {
-    main.consumes = ["Plugin"];
-    main.provides = ["myplugin"];
+define ( function (require, exports, module) {
+    main.consumes = ["Editor"];
+    main.provides = ["snlab.devopen.visualprog"];
+
     return main;
 
-    function main(options, imports, register) {
-        var Plugin = imports.Plugin;
-        
-        /***** Initialization *****/
-        
-        var plugin = new Plugin("Ajax.org", main.consumes);
-        var emit = plugin.getEmitter();
-        
-        function load() {
-            
+    function main(options, imports, register){
+        var Editor = imports.Editor;
+        var _ = require("lodash");
+        var extensions = ["mapleml"]; //target extensions
+        //register editor
+        var handle = editors.register(
+            "visualprog", "Visual Programming Editor", VisualEditor, extensions
+        );
+
+        function VisualEditor() {
+            var plugin = new Editor("snlab.org", main.consumes, extensions);
+
+            var container;
+            var currentSession;
+            var activeDocument;
+
+            alert("Visual Editor");
         }
-        
-        /***** Methods *****/
-        
-        
-        
-        /***** Lifecycle *****/
-        
-        plugin.on("load", function() {
-            load();
-        });
-        plugin.on("unload", function() {
-        
-        });
-        
-        /***** Register and define API *****/
-        
-        plugin.freezePublicAPI({
-            
-        });
-        
-        register(null, {
-            "myplugin": plugin
-        });
     }
 });
