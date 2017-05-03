@@ -1,11 +1,12 @@
 define ( function (require, exports, module) {
-    main.consumes = ["Editor"];
+    main.consumes = ["Editor", "editors"];
     main.provides = ["snlab.devopen.visualprog"];
 
     return main;
 
     function main(options, imports, register){
         var Editor = imports.Editor;
+        var editors = imports.editors;
         var _ = require("lodash");
         var extensions = ["mapleml"]; //target extensions
         //register editor
@@ -19,8 +20,6 @@ define ( function (require, exports, module) {
             var container;
             var currentSession;
             var activeDocument;
-
-            alert("Visual Editor");
         }
     }
 });
