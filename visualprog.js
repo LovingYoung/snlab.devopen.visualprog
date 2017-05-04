@@ -13,13 +13,35 @@ define ( function (require, exports, module) {
         var handle = editors.register(
             "visualprog", "Visual Programming Editor", VisualEditor, extensions
         );
+        var plugin = new Editor("snlab.devopen.visualprog", main.consumes, extensions);
+
 
         function VisualEditor() {
-            var plugin = new Editor("snlab.org", main.consumes, extensions);
 
             var container;
             var currentSession;
             var activeDocument;
         }
+
+        function load(){
+
+        }
+
+        plugin.on("load", function() {
+            load();
+        });
+
+        plugin.on("unload", function() {
+
+        });
+
+        plugin.freezePublicAPI({
+
+        });
+
+        register(null, {
+            "snlab.devopen.visualprog": plugin
+        });
+
     }
 });
