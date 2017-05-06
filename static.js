@@ -1,37 +1,47 @@
-define (function (require, exports, modules) {
+define(function(require, exports, modules) {
     "use strict";
 
     main.consumes = ["Plugin", "connect.static"];
-    main.provides = ["snlab.devopen.visualprog.statics"];
+    main.provides = ["visualprog.statics"];
+    return main;
 
     function main(options, imports, register) {
-        var Plugin = imoprts.Plugin;
+        var Plugin = imports.Plugin;
         var statics = imports["connect.static"];
+
+        /***** Initialization *****/
 
         var plugin = new Plugin("snlab.org", main.consumes);
 
         var loaded = false;
         function load() {
-            if(loaded) return false;
+            if (loaded) return false;
             loaded = true;
+
             statics.addStatics([{
                 path: __dirname + "/lib",
-                mount: "/snlab.devopen.visualprog"
+                mount: "/visualprog"
             }]);
+
             return loaded;
         }
 
-        plugin.on('load', function () {
+        /***** Lifecycle *****/
+
+        plugin.on("load", function(){
             load();
         });
-        plugin.on('unload', function () {
+        plugin.on("unload", function(){
             loaded = false;
         });
+
+        /***** Register and define API *****/
 
         plugin.freezePublicAPI({});
 
         register(null, {
-            "snlab.devopen.visualprog.statics": plugin
+            "visualprog.statics": plugin
         });
     }
 });
+

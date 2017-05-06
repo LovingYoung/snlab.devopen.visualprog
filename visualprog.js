@@ -43,25 +43,15 @@ define ( function (require, exports, module) {
             function removeSelection(){}
             function replaceSelection(){}
 
-            var container, contents, session;
+            var container, session;
             plugin.on("draw", function (e) {
                 container = e.htmlNode;
-                ui.insertHtml(container, require("text!./editor.html"), plugin);
-                contents = container.querySelector(".contents");
-                contents.addEventListener("scroll", function () {
-                    currentSession.scrollLeft = this.scrollLeft;
-                    currentSession.scrollTop = this.scrollTop;
-                })
-            })
+                ui.insertHtml(container, require("text!./editor_iframe.html"), plugin);
+            });
 
             plugin.on("documentLoad", function (e) {
                 var doc = e.doc;
                 session = doc.getSession();
-                session.canvas = document.createElement("canvas");
-                session.update = function () {
-                    contents.scrollLeft = session.scrollLeft;
-                    contents.scrollTop= session.scrollTop;
-                }
 
                 doc.on("setValue", function (e) {
                     renderOnCanvas(e.value, session.canvas);
@@ -107,11 +97,6 @@ define ( function (require, exports, module) {
             plugin.on("documentActivate", function (e) {
                 currentDocument = e.doc;
                 currentSession = e.doc.getSession();
-
-                if(contents.firstChild)
-                    contents.removeChild(contents.firstChild);
-                contents.appendChild(currentSession.canvas);
-                session.update();
             })
 
             plugin.on("copy", function (e) {
@@ -142,16 +127,7 @@ define ( function (require, exports, module) {
                 var session = e.doc.getSession();
                 session.scrollTop = e.state.scrollTop;
                 session.scrollLeft = e.state.scrollLeft;
-                if(session == currentSession)
-                    session.update();
-            })
-
-            plugin.on("focus", function () {
-                contents.className = "contents focus";
-            })
-            plugin.on("blur", function () {
-                contents.className = "contents";
-            })
+            });
 
             return plugin;
         }
