@@ -19,14 +19,6 @@ define ( function (require, exports, module) {
         function VisualEditor() {
             var plugin = new Editor("snlab.devopen.visualprog", main.consumes, extensions);
 
-            var BGCOLOR = {
-                "flat-light": "#F1F1F1",
-                "light": "#D3D3D3",
-                "light-gray": "#D3D3D3",
-                "dark": "#3D3D3D",
-                "dark-gray": "#3D3D3D"
-            }
-
             //Public API
             plugin.freezePublicAPI({});
 
@@ -79,12 +71,11 @@ define ( function (require, exports, module) {
                 function setTheme(e) {
                     var tab = doc.tab;
                     var isDark = e.theme == "dark";
-                    tab.backgroundColor = BGCOLOR[e.theme];
                     if (isDark) tab.classList.add("dark");
                     else tab.classList.remove("dark");
                 }
                 layout.on("themeChange", setTheme, session);
-                setTheme({theme: settings.get("usr/general/@skin")});
+                setTheme({theme: layout.theme});
 
                 doc.on("unload", function () {
                     session.kill;
