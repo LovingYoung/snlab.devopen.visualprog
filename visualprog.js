@@ -129,6 +129,7 @@ define ( function (require, exports, module) {
             plugin.on("documentActivate", function (e) {
                 var document = e.doc;
                 var session = e.doc.getSession();
+                var currentTab = e.doc.tab;
                 // if(contents.firstChild)
                 //     contents.removeChild(contents.firstChild);
                 session.update();
@@ -138,6 +139,19 @@ define ( function (require, exports, module) {
                         save.save(document.tab);
                     }
                     contents.insertBefore(session.iframe, contents.firstChild);
+                }
+                var tabs = tabManager.getTabs();
+
+                for(var i = 0; i < tabs.length; i++){
+                    if(tabs[i] == currentTab) continue;
+                    for(var j = 0; j < extensions.length; j++){
+                        if(tabs[i].path && tabs[i].path.endsWith(extensions[j])){
+                            var temp_session = tabs[i].document.getSession();
+                            if(temp_session.iframe && temp_session.iframe.parentNode){
+                                temp_session.iframe.parentNode.removeChild(temp_session.iframe);
+                            }
+                        }
+                    }
                 }
             });
 
