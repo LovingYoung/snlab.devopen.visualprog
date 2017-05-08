@@ -31,9 +31,6 @@ define ( function (require, exports, module) {
             // Initialize the Editor
             plugin.load(null, "snlab.devopen.visualprog");
 
-            function renderOnCanvas(value, canvas){
-
-            }
             function hideProgress(){}
             function showProgress(){}
             function serializeValue(){}
