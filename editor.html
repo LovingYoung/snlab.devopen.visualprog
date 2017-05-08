@@ -381,6 +381,17 @@
     window.addEventListener('resize', onresize, false);
     onresize();
     Blockly.svgResize(workspace);
+    
+    function get_text() {
+        var xml = Blockly.Xml.workspaceToDom(workspace);
+        var xml_text = Blockly.Xml.domToPrettyText(xml);
+        return xml_text;
+    }
+
+    function set_text(text) {
+        var xml = Blockly.Xml.textToDom(text);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+    }
 </script>
 </body>
 </html>
