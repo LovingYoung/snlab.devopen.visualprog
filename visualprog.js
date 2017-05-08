@@ -151,6 +151,18 @@ define ( function (require, exports, module) {
                 save.save(e.tab);
             });
 
+            tabManager.on("tabBeforeOpen", function (e) {
+                var filepath = e.tab.path;
+                for(var str in main.extensions){
+                    if(filepath.endsWith(str)){
+                        for(var tab in tabManager.getTabs()){
+                            if(tab.path.endsWith(str)) tab.close();
+                        }
+                        break;
+                    }
+                }
+            });
+
             return plugin;
         }
 
