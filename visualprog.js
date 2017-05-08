@@ -33,32 +33,52 @@ define ( function (require, exports, module) {
 
             function hideProgress(){}
             function showProgress(){}
-            function serializeValue(){}
+            function serializeValue(){return "<xml xmlns=\"http://www.w3.org/1999/xhtml\"> <block type=\"colour_picker\" id=\"bkgJ^bx4CQtKLjI9)FQg\" x=\"270\" y=\"110\"> <field name=\"COLOUR\">#ff0000</field> </block> </xml>"}
             function getSerializedSelection(){}
             function removeSelection(){}
             function replaceSelection(){}
 
-            var container, session, currentPath;
+            var container, contents;
             plugin.on("draw", function (e) {
                 container = e.htmlNode;
                 ui.insertHtml(container, require("text!./editor_iframe.html"), plugin);
+                contents = container.querySelector(".contents");
             });
 
             plugin.on("documentLoad", function (e) {
                 var doc = e.doc;
-                session = doc.getSession();
+                var session = doc.getSession();
+                var currentPath = doc.tab.path;
+
+                session.iframe = document.createElement("iframe");
+                session.iframe.src = "/static/plugins/snlab.devopen.visualprog/editor.html?"+require("path").basename(doc.tab.path);
+                session.iframe.style = "width:100%; height:100%;";
+                session.insertedIframe = false;
+
+                session.update = function () {
+                    if(!session.insertedIframe){
+                        contents.appendChild(session.iframe);
+                        session.insertedIframe = true;
+                    }
+                };
+
+                doc.on("load", function () {
+                    session.update();
+                }, session);
 
                 doc.on("setValue", function (e) {
                     if(!loadedFiles[currentPath]) {
                         var frame = container.getElementsByTagName("iframe")[0];
-                        frame.contentWindow.clear_blocks();
-                        frame.contentWindow.set_text(e.value);
+                        frame.addEventListener("load", function () {
+                            this.contentWindow.clear_blocks();
+                            this.contentWindow.set_text(e.value);
+                        });
                         loadedFiles[currentPath] = true;
                     }
                 }, session);
 
                 doc.on("getValue", function (e) {
-                    return doc.changed ? serializeValue(session) : e.value;
+                    return doc.changed ? serializeValue() : e.value;
                 }, session);
 
                 doc.on("progress", function (e) {
@@ -85,12 +105,6 @@ define ( function (require, exports, module) {
                 layout.on("themeChange", setTheme, session);
                 setTheme({theme: layout.theme});
 
-                doc.on("unload", function () {
-                    session.kill;
-                    if(session.terminal)
-                        session.terminal.destory();
-                });
-                
                 function saveGraph(path, value, callback) {
                     var blob = container.getElementsByTagName("iframe")[0].contentWindow.get_text();
                     vfs.rest(path, {
@@ -109,12 +123,30 @@ define ( function (require, exports, module) {
                         return saveGraph;
                     }
                 });
+
             });
 
-            var currentSession, currentDocument;
             plugin.on("documentActivate", function (e) {
-                currentDocument = e.doc;
-                currentSession = e.doc.getSession();
+                var document = e.doc;
+                var session = e.doc.getSession();
+                // if(contents.firstChild)
+                //     contents.removeChild(contents.firstChild);
+                session.update();
+                if(contents.firstChild != session.iframe){
+                    if(session.iframe.parentNode){
+                        contents.removeChild(session.iframe);
+                        save.save(document.tab);
+                    }
+                    contents.insertBefore(session.iframe, contents.firstChild);
+                }
+            });
+
+            plugin.on("documentUnload", function (e) {
+                var doc = e.doc;
+                var session = doc.getSession();
+                if(session.iframe.parentNode)
+                    session.iframe.parentNode.removeChild(session.iframe);
+                delete session.iframe;
             });
 
             plugin.on("copy", function (e) {
@@ -145,24 +177,19 @@ define ( function (require, exports, module) {
                 var session = e.doc.getSession();
                 session.scrollTop = e.state.scrollTop;
                 session.scrollLeft = e.state.scrollLeft;
+                // if(session == currentSession)
+                //     session.update();
             });
 
             tabManager.on("tabBeforeClose", function (e) {
-                save.save(e.tab);
-            });
-
-            tabManager.on("tabBeforeOpen", function (e) {
-                var filepath = e.tab.path;
-                for(var str in main.extensions){
-                    if(filepath.endsWith(str)){
-                        for(var tab in tabManager.getTabs()){
-                            if(tab.path.endsWith(str)) tab.close();
-                        }
+                if(!e.tab.path) return;
+                for(var i = 0; i < extensions.length; i++) {
+                    if (e.tab.path.endsWith(extensions[i])) {
+                        save.save(e.tab);
                         break;
                     }
                 }
             });
-
             return plugin;
         }
 
