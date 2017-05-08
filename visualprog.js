@@ -1,5 +1,5 @@
 define ( function (require, exports, module) {
-    main.consumes = ["Editor", "editors", "ui", "layout", "settings", "save", "vfs", "fs"];
+    main.consumes = ["Editor", "editors", "ui", "layout", "settings", "save", "vfs", "fs", "tabManager"];
     main.provides = ["snlab.devopen.visualprog"];
 
     return main;
@@ -15,6 +15,7 @@ define ( function (require, exports, module) {
         var vfs = imports.vfs;
         var fs = imports.fs;
         var extensions = ["mapleml"]; //target extensions
+        var tabManager = imports.tabManager;
 
         var loadedFiles = {};
         //register editor
@@ -110,7 +111,7 @@ define ( function (require, exports, module) {
                         loadedFiles[path] = false;
                         return saveGraph;
                     }
-                })
+                });
             });
 
             var currentSession, currentDocument;
@@ -147,6 +148,10 @@ define ( function (require, exports, module) {
                 var session = e.doc.getSession();
                 session.scrollTop = e.state.scrollTop;
                 session.scrollLeft = e.state.scrollLeft;
+            });
+
+            tabManager.on("tabBeforeClose", function (e) {
+                save.save(e.tab);
             });
 
             return plugin;
