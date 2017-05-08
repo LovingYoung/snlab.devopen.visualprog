@@ -130,8 +130,6 @@ define ( function (require, exports, module) {
                 var document = e.doc;
                 var session = e.doc.getSession();
                 var currentTab = e.doc.tab;
-                // if(contents.firstChild)
-                //     contents.removeChild(contents.firstChild);
                 session.update();
                 if(contents.firstChild != session.iframe){
                     if(session.iframe.parentNode){
@@ -191,8 +189,6 @@ define ( function (require, exports, module) {
                 var session = e.doc.getSession();
                 session.scrollTop = e.state.scrollTop;
                 session.scrollLeft = e.state.scrollLeft;
-                // if(session == currentSession)
-                //     session.update();
             });
 
             tabManager.on("tabBeforeClose", function (e) {
