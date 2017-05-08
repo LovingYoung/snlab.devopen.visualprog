@@ -392,6 +392,10 @@
         var xml = Blockly.Xml.textToDom(text);
         Blockly.Xml.domToWorkspace(xml, workspace);
     }
+
+    function clear_blocks() {
+        Blockly.mainWorkspace.clear();
+    }
 </script>
 </body>
 </html>
