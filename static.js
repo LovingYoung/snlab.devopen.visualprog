@@ -23,6 +23,11 @@ define(function(require, exports, modules) {
                 mount: "/visualprog"
             }]);
 
+            statics.addStatics([{
+                path: __dirname + "/utils",
+                mount: "/visualprog"
+            }]);
+
             return loaded;
         }
 
