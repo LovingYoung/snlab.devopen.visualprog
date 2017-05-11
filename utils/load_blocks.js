@@ -90,6 +90,19 @@ constants.network_static_ip = function () {
     }
 };
 
+constants.network_TYPE_IPv4 = function () {
+    var json = {
+        "message0": "TYPE_IPv4",
+        "colour": 150,
+        "output": "Ethernet_Type"
+    };
+    return {
+        init: function () {
+            this.jsonInit(json);
+        }
+    }
+};
+
 /* Variables */
 
 var collection_list= [
