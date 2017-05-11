@@ -3,10 +3,13 @@
  */
 
 function BlockCollections(){
-    this.block_list = [];
     this.load_blocks = function () {
-        for(var i = 0; i < this.block_list.length; i++){
-            var name = this.block_list[i];
+        var cls = this;
+        var block_list = Object.getOwnPropertyNames(this).filter(function (p){
+            return (p.startsWith("network")) && (typeof cls[p] === 'function');
+        });
+        for(var i = 0; i < block_list.length; i++){
+            var name = block_list[i];
             var fn = this[name];
             if(typeof fn === 'function')
                 Blockly.Blocks[name] = fn();
@@ -19,7 +22,7 @@ var constants = new BlockCollections();
 var variables = new BlockCollections();
 
 /* Functions */
-functions.onPacket = function(){
+functions.network_onPacket = function(){
     var json = {
         "message0": "onPacket with pkt",
         "args0": [],
@@ -37,7 +40,7 @@ functions.onPacket = function(){
     }
 };
 
-functions.IPv4SrcIs = function() {
+functions.network_IPv4SrcIs = function() {
     var json = {
         "message0": "IPv4SrcIs %1",
         "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
@@ -51,7 +54,7 @@ functions.IPv4SrcIs = function() {
     }
 };
 
-functions.IPv4DstIs = function () {
+functions.network_IPv4DstIs = function () {
     var json = {
         "message0": "IPv4DstIs %1",
         "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
@@ -65,11 +68,9 @@ functions.IPv4DstIs = function () {
     }
 };
 
-functions.block_list = ["onPacket", "IPv4SrcIs", "IPv4DstIs"];
-
 /* Constants */
 
-constants.static_ip = function () {
+constants.network_static_ip = function () {
     var json = {
         "message0": "%1.%2.%3.%4",
         "args0":[
@@ -88,8 +89,6 @@ constants.static_ip = function () {
         }
     }
 };
-
-constants.block_list = ['static_ip'];
 
 /* Variables */
 
