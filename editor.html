@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Editor</title>
+    <!-- jQuery -->
     <script src="lib/jquery-3.2.1.min.js"></script>
+
+    <!-- Blockly -->
     <script src="lib/blockly/blockly_uncompressed.js"></script>
+
+    <!-- Custom Java Generator -->
     <script src="lib/blockly/generators/java.js"></script>
+    <script src="lib/blockly/generators/java/logic.js"></script>
+    <script src="lib/blockly/generators/java/loops.js"></script>
+    <script src="lib/blockly/generators/java/math.js"></script>
+
+    <!-- Built-in blocks -->
     <script src="lib/blockly/blocks_compressed.js"></script>
+
+    <!-- Language -->
     <script src="lib/blockly/msg/js/en.js"></script>
+
+    <!-- custom blocks -->
     <script src="utils/load_blocks.js"></script>
     <script>
         load_blocks();
