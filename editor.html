@@ -14,9 +14,21 @@
     <script src="lib/blockly/generators/java/logic.js"></script>
     <script src="lib/blockly/generators/java/loops.js"></script>
     <script src="lib/blockly/generators/java/math.js"></script>
+    <script src="lib/blockly/generators/java/lists.js"></script>
+    <script src="lib/blockly/generators/java/variables.js"></script>
+    <script src="lib/blockly/generators/java/text.js"></script>
+    <script src="lib/blockly/generators/java/colour.js"></script>
+    <script src="lib/blockly/generators/java/procedures.js"></script>
 
     <!-- Built-in blocks -->
-    <script src="lib/blockly/blocks_compressed.js"></script>
+    <script src="lib/blockly/blocks/colour.js"></script>
+    <script src="lib/blockly/blocks/lists.js"></script>
+    <script src="lib/blockly/blocks/logic.js"></script>
+    <script src="lib/blockly/blocks/loops.js"></script>
+    <script src="lib/blockly/blocks/math.js"></script>
+    <script src="lib/blockly/blocks/procedures.js"></script>
+    <script src="lib/blockly/blocks/text.js"></script>
+    <script src="lib/blockly/blocks/variables.js"></script>
 
     <!-- Language -->
     <script src="lib/blockly/msg/js/en.js"></script>
@@ -141,7 +153,7 @@
                 </shadow>
             </value>
         </block>
-        <block type="math_on_list"></block>
+        <!-- Useless blocks: lists <block type="math_on_list"></block> -->
         <block type="math_modulo">
             <value name="DIVIDEND">
                 <shadow type="math_number">
@@ -207,6 +219,7 @@
                 </shadow>
             </value>
         </block>
+        <!--useless
         <block type="text_indexOf">
             <value name="VALUE">
                 <block type="variables_get">
@@ -233,6 +246,7 @@
                 </block>
             </value>
         </block>
+        -->
         <block type="text_changeCase">
             <value name="TEXT">
                 <shadow type="text">
@@ -240,6 +254,7 @@
                 </shadow>
             </value>
         </block>
+        <!-- useless
         <block type="text_trim">
             <value name="TEXT">
                 <shadow type="text">
@@ -261,7 +276,9 @@
                 </shadow>
             </value>
         </block>
+        -->
     </category>
+    <!--
     <category name="Lists" colour="260">
         <block type="lists_create_with">
             <mutation items="0"></mutation>
@@ -312,7 +329,8 @@
             </value>
         </block>
         <block type="lists_sort"></block>
-    </category>
+    </category> -->
+    <!--
     <category name="Colour" colour="20">
         <block type="colour_picker"></block>
         <block type="colour_random"></block>
@@ -351,6 +369,7 @@
             </value>
         </block>
     </category>
+    -->
     <category name="Network functions" colour="100">
         <block type="network_onPacket"></block>
         <block type="network_IPv4SrcIs"></block>
