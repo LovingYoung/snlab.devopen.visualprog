@@ -106,6 +106,7 @@ define ( function (require, exports, module) {
                 }, session);
 
                 doc.on("setValue", function (e) {
+                    if(e.value === "") return;
                     if(!loadedFiles[currentPath]) {
                         var frame = container.getElementsByTagName("iframe")[0];
                         frame.addEventListener("load", function () {
