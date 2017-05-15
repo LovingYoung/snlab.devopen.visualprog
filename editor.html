@@ -5,7 +5,13 @@
     <title>Editor</title>
     <!-- jQuery -->
     <script src="lib/jquery-3.2.1.min.js"></script>
+
+    <!-- Variable types and names utilities -->
     <script src="utils/variables.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Blockly -->
     <script src="lib/blockly/blockly_uncompressed.js"></script>
@@ -41,6 +47,15 @@
     <script src="utils/load_blocks.js"></script>
     <script>
         load_blocks();
+    </script>
+    <script>
+        function create_variable() {
+          $("#confirm_variable").prop('checked', true);
+        }
+
+        function cancal_variable() {
+          $("#confirm_variable").prop('checked', false);
+        }
     </script>
     <style>
         html, body {
@@ -456,5 +471,37 @@
         return Blockly.Java.workspaceToCode(workspace);
     }
 </script>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create new variables</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="variable_type">Type: </label>
+                    <select class="form-control" id="variable_type">
+                        <option value="int">Integer</option>
+                        <option value="double">Decimal</option>
+                        <option value="String">String</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="variable_name">Name: </label>
+                    <input id="variable_name" class="form-control" placeholder="Variable Name">
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" id="confirm_variable" hidden>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancal_variable();">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_variable();">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
