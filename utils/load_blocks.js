@@ -30,7 +30,7 @@ functions.network_onPacket = function(){
     "args1": [{"type": "input_statement", "name": "DO"}],
     "message2": "set action %1",
     "args2": [{"type": "input_value", "name":"ACTION", "check": "Number", "align": "RIGHT"}],
-    "colour": 100
+    "colour": 270
   };
   return {
     init: function(){
@@ -45,7 +45,7 @@ functions.network_IPv4SrcIs = function() {
     "message0": "IPv4SrcIs %1",
     "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
     "output": "Boolean",
-    "colour": 100
+    "colour": 270
   };
   return {
     init: function () {
@@ -59,7 +59,24 @@ functions.network_IPv4DstIs = function () {
     "message0": "IPv4DstIs %1",
     "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
     "output": "Boolean",
-    "colour": 100
+    "colour": 270
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+functions.network_setRoute = function () {
+  var json = {
+    "message0": "Set Action %1",
+    "args0": [{
+      "type": "input_value", "name": "Route", "check": "network_route"
+    }],
+    "colour": 270,
+    "previousStatement": "Action",
+    "nextStatement": "Action"
   };
   return {
     init: function () {
