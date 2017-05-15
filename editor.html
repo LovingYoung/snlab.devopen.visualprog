@@ -22,6 +22,7 @@
     <script src="lib/blockly/generators/java/procedures.js"></script>
     <script src="lib/blockly/generators/java/network_functions.js"></script>
     <script src="lib/blockly/generators/java/network_constants.js"></script>
+    <script src="lib/blockly/generators/java/network_variables.js"></script>
 
     <!-- Built-in blocks -->
     <script src="lib/blockly/blocks/colour.js"></script>
@@ -373,7 +374,7 @@
         </block>
     </category>
     -->
-    <category name="Network functions" colour="100">
+    <category name="Network Functions" colour="100">
         <block type="network_onPacket"></block>
         <block type="network_IPv4SrcIs"></block>
         <block type="network_IPv4DstIs"></block>
@@ -381,6 +382,9 @@
     <category name="Network Constants" colour="150">
         <block type="network_static_ip"></block>
         <block type="network_TYPE_IPv4"></block>
+    </category>
+    <category name="Network Variables" colour="200">
+        <block type="network_ethType"></block>
     </category>
     <sep></sep>
     <category name="Variables" colour="330" custom="VARIABLE"></category>
