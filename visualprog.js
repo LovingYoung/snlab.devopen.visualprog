@@ -1,5 +1,9 @@
 define ( function (require, exports, module) {
-    main.consumes = ["Editor", "editors", "ui", "layout", "settings", "save", "vfs", "fs", "tabManager"];
+    main.consumes = [
+        //Editor-related
+        "Editor", "editors", "ui", "layout", "settings", "save", "vfs", "fs", "tabManager",
+        //Menus-related
+        "menus", "commands"];
     main.provides = ["snlab.devopen.visualprog"];
 
     return main;
@@ -16,6 +20,8 @@ define ( function (require, exports, module) {
         var fs = imports.fs;
         var extensions = ["mapleml"]; //target extensions
         var tabManager = imports.tabManager;
+        var menus = imports.menus;
+        var commands = imports.commands;
 
         var loadedFiles = {};
         //register editor
@@ -24,6 +30,10 @@ define ( function (require, exports, module) {
         );
         function VisualEditor() {
             var plugin = new Editor("snlab.devopen.visualprog", main.consumes, extensions);
+
+            menus.addItemByPath("File/Transfer to Java Code", new ui.item({
+                command: "mapleml2Java"
+            }), 300, plugin);
 
             //Public API
             plugin.freezePublicAPI({});
@@ -39,6 +49,35 @@ define ( function (require, exports, module) {
             function replaceSelection(){}
 
             var container, contents;
+
+            /**
+             * Add new commands which in use of creating menu item
+             */
+            commands.addCommand({
+                name: "mapleml2Java",
+                exec: function (e) {
+                    //Get the code of generated java code
+                    var code = container.getElementsByTagName("iframe")[0].contentWindow.get_code();
+                    //Get current path
+                    var currentTab = tabManager.focussedTab;
+                    if(!currentTab) return;
+                    var path = currentTab.path;
+                    if(!path || !path.endsWith('mapleml')) return;
+                    //Generate java path
+                    var dir = require("path").dirname(path);
+                    var javaPath = dir + '/SDNSolution.java';
+                    //Write code to java file
+                    fs.writeFile(javaPath, code, function (err) {
+                        if(err) console.log(err);
+                        else console.log("Write Successfully");
+                    })
+                }
+            }, plugin);
+
+            /**
+             * Add new menu items: to generate java code from mapleml
+             */
+
             plugin.on("draw", function (e) {
                 container = e.htmlNode;
                 ui.insertHtml(container, require("text!./editor_iframe.html"), plugin);

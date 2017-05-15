@@ -446,6 +446,10 @@
     function clear_blocks() {
         Blockly.mainWorkspace.clear();
     }
+
+    function get_code() {
+        return Blockly.Java.workspaceToCode(workspace);
+    }
 </script>
 </body>
 </html>
