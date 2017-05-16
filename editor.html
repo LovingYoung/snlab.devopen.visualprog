@@ -81,6 +81,41 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-default" style="margin-bottom: 0px">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#" onclick="$('#TopologyModal').modal()">Show topology</a></li>
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Link</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 <table>
     <tr>
         <td id="blocklyArea">
@@ -473,12 +508,12 @@
     }
 </script>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="VariableModal" tabindex="-1" role="dialog" aria-labelledby="VariableModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Create new variables</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancal_variable()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="VariableModalLabel">Create new variables</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -504,5 +539,34 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="TopologyModal" tabindex="-1" role="dialog" aria-labelledby="TopologyModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                <h4 class="modal-title"  id="TopologyModalLabel">Topology</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $.ajax({
+      crossOrigin: true,
+      dataType: "json",
+      contentType: "application/json",
+      url: "http://127.0.0.1:9001/test/network/topology",
+      success: function (data) {
+        console.log(data);
+      }
+    })
+</script>
 </body>
 </html>
