@@ -45,17 +45,15 @@
 
     <!-- custom blocks -->
     <script src="utils/load_blocks.js"></script>
+    <script> load_blocks(); </script>
     <script>
-        load_blocks();
-    </script>
-    <script>
-        function create_variable() {
-          $("#confirm_variable").prop('checked', true);
-        }
+      function create_variable() {
+        $("#confirm_variable").prop('checked', true);
+      }
 
-        function cancal_variable() {
-          $("#confirm_variable").prop('checked', false);
-        }
+      function cancal_variable() {
+        $("#confirm_variable").prop('checked', false);
+      }
     </script>
     <style>
         html, body {
@@ -78,6 +76,24 @@
         #blocklyArea {
             height: 99%;
         }
+    </style>
+    <style>
+
+        .link {
+            stroke: #aaa;
+        }
+
+        .node text {
+            stroke:#333;
+            cursos:pointer;
+        }
+
+        .node circle{
+            stroke:#fff;
+            stroke-width:3px;
+            fill:#555;
+        }
+
     </style>
 </head>
 <body>
@@ -443,69 +459,69 @@
 </xml>
 
 <script>
-    var blocklyArea = document.getElementById('blocklyArea');
-    var blocklyDiv = document.getElementById('blocklyDiv');
-    var workspace = Blockly.inject(blocklyDiv,
+  var blocklyArea = document.getElementById('blocklyArea');
+  var blocklyDiv = document.getElementById('blocklyDiv');
+  var workspace = Blockly.inject(blocklyDiv,
+    {
+      media: 'lib/blockly/media/',
+      toolbox: document.getElementById('toolbox'),
+      grid:
         {
-            media: 'lib/blockly/media/',
-            toolbox: document.getElementById('toolbox'),
-            grid:
-                {
-                    spacing: 20,
-                    length: 3,
-                    color: "#ccc",
-                    snap: true
-                },
-            trashcan: true,
-            //horizontalLayout: true
-            zoom:
-                {
-                    controls: true,
-                    wheel: true,
-                    startScale: 1.0,
-                    maxScale: 3,
-                    minScale: 0.3,
-                    scaleSpeed: 1.2
-                },
-        });
-    var onresize = function(e) {
-        // Compute the absolute coordinates and dimensions of blocklyArea.
-        var element = blocklyArea;
-        var x = 0;
-        var y = 0;
-        do {
-            x += element.offsetLeft;
-            y += element.offsetTop;
-            element = element.offsetParent;
-        } while (element);
-        // Position blocklyDiv over blocklyArea.
-        blocklyDiv.style.left = x + 'px';
-        blocklyDiv.style.top = y + 'px';
-        blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-        blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-    };
-    window.addEventListener('resize', onresize, false);
-    onresize();
-    Blockly.svgResize(workspace);
-    
-    function get_text() {
-        var xml = Blockly.Xml.workspaceToDom(workspace);
-        var xml_text = Blockly.Xml.domToPrettyText(xml);
-        return xml_text;
-    }
+          spacing: 20,
+          length: 3,
+          color: "#ccc",
+          snap: true
+        },
+      trashcan: true,
+      //horizontalLayout: true
+      zoom:
+        {
+          controls: true,
+          wheel: true,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2
+        },
+    });
+  var onresize = function(e) {
+    // Compute the absolute coordinates and dimensions of blocklyArea.
+    var element = blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = x + 'px';
+    blocklyDiv.style.top = y + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+  };
+  window.addEventListener('resize', onresize, false);
+  onresize();
+  Blockly.svgResize(workspace);
 
-    function set_text(text) {
-        var xml = Blockly.Xml.textToDom(text);
-        Blockly.Xml.domToWorkspace(xml, workspace);
-    }
+  function get_text() {
+    var xml = Blockly.Xml.workspaceToDom(workspace);
+    var xml_text = Blockly.Xml.domToPrettyText(xml);
+    return xml_text;
+  }
 
-    function clear_blocks() {
-        Blockly.mainWorkspace.clear();
-    }
+  function set_text(text) {
+    var xml = Blockly.Xml.textToDom(text);
+    Blockly.Xml.domToWorkspace(xml, workspace);
+  }
 
-    function get_code() {
-        return Blockly.Java.workspaceToCode(workspace);
-    }
+  function clear_blocks() {
+    Blockly.mainWorkspace.clear();
+  }
+
+  function get_code() {
+    return Blockly.Java.workspaceToCode(workspace);
+  }
 </script>
 <!-- Modal -->
 <div class="modal fade" id="VariableModal" tabindex="-1" role="dialog" aria-labelledby="VariableModalLabel">
@@ -546,7 +562,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
                 <h4 class="modal-title"  id="TopologyModalLabel">Topology</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="TopologyModalBody">
                 <div class="form-group">
                 </div>
             </div>
@@ -557,16 +573,19 @@
         </div>
     </div>
 </div>
+<script src="utils/render_topology.js"></script>
 <script>
-    $.ajax({
-      crossOrigin: true,
-      dataType: "json",
-      contentType: "application/json",
-      url: "http://127.0.0.1:9001/test/network/topology",
-      success: function (data) {
-        console.log(data);
-      }
-    })
+  $.ajax({
+    crossOrigin: true,
+    dataType: "json",
+    contentType: "application/json",
+    url: "http://127.0.0.1:9001/test/network/topology",
+    success: function (data) {
+      createTopo(data);
+    }
+  })
 </script>
+<!-- d3 -->
+<script src="lib/d3.min.js"></script>
 </body>
 </html>

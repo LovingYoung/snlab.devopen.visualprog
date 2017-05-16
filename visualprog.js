@@ -92,7 +92,8 @@ define ( function (require, exports, module) {
         var currentPath = doc.tab.path;
 
         session.iframe = document.createElement("iframe");
-        session.iframe.src = "/static/plugins/snlab.devopen.visualprog/editor.html?"+require("path").basename(doc.tab.path);
+        // session.iframe.src = "/static/plugins/snlab.devopen.visualprog/editor.html?"+require("path").basename(doc.tab.path);
+        session.iframe.src = "/static/plugins/snlab.devopen.visualprog/editor.html";
         session.iframe.style = "width:100%; height:100%;";
         session.insertedIframe = false;
 
