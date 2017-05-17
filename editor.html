@@ -54,6 +54,29 @@
       function cancal_variable() {
         $("#confirm_variable").prop('checked', false);
       }
+
+      function create_static_route() {
+        $("#confirm_static_route").prop('checked', true);
+        nodes2Links();
+        StaticRouteNode = [];
+        var blk = workspace.newBlock("lists_create_with");
+        blk.itemCount_ = StaticRouteLink.length;
+        for(var i = 0; i < StaticRouteLink.length; i++){
+          var txt_i = workspace.newBlock("text");
+          txt_i.setFieldValue(StaticRouteLink[i].id, "TEXT");
+          txt_i.outputConnection.connect(blk.inputList[i].connection);
+        };
+
+        var txt = get_text();
+        workspace.clear();
+        set_text(txt);
+        StaticRouteLink = [];
+        document.getElementById("staticRoute").textContent = ("Static Route: ");
+      }
+
+      function cancal_static_route() {
+        $("#confirm_static_route").prop('checked', false);
+      }
     </script>
     <style>
         html, body {
@@ -348,7 +371,6 @@
         </block>
         -->
     </category>
-    <!--
     <category name="Lists" colour="260">
         <block type="lists_create_with">
             <mutation items="0"></mutation>
@@ -399,7 +421,7 @@
             </value>
         </block>
         <block type="lists_sort"></block>
-    </category> -->
+    </category>
     <!--
     <category name="Colour" colour="20">
         <block type="colour_picker"></block>
@@ -538,6 +560,7 @@
                         <option value="int">Integer</option>
                         <option value="double">Decimal</option>
                         <option value="String">String</option>
+                        <option value="String[]">StaticRoute</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -556,19 +579,21 @@
     </div>
 </div>
 <div class="modal fade" id="TopologyModal" tabindex="-1" role="dialog" aria-labelledby="TopologyModalLabel">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancal_static_route()"><span aria-hidden="true">x</span></button>
                 <h4 class="modal-title"  id="TopologyModalLabel">Topology</h4>
+                <label id="staticRoute">Static Route: </label>
             </div>
             <div class="modal-body" id="TopologyModalBody">
                 <div class="form-group">
+                    <input type="checkbox" id="confirm_static_route" hidden>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancal_static_route()">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_static_route()">Save changes</button>
             </div>
         </div>
     </div>

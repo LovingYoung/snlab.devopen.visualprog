@@ -14,17 +14,27 @@
 //   ]
 // };
 
+var StaticRouteNode = [];
+var StaticRouteLink = [];
+var Topo = undefined;
+var IdDict = {};
+var NameDict = {};
+var LinkList = {};
+
 function createTopo(JSONData) {
-  var dict = {};
+  Topo = JSONData;
   for(var i = 0; i < JSONData.nodes.length; i++){
     JSONData.nodes[i].group = parseInt(JSONData.nodes[i].deviceId.split(':')[1]);
-    dict[JSONData.nodes[i].deviceId] = i;
+    IdDict[JSONData.nodes[i].deviceId] = i;
+    NameDict[JSONData.nodes[i].name] = i;
   }
   for(var i = 0; i < JSONData.links.length; i++){
     JSONData.links[i].sourceStr = JSONData.links[i].source;
     JSONData.links[i].targetStr = JSONData.links[i].target;
-    JSONData.links[i].source = dict[JSONData.links[i].sourceStr];
-    JSONData.links[i].target = dict[JSONData.links[i].targetStr];
+    JSONData.links[i].source = IdDict[JSONData.links[i].sourceStr];
+    JSONData.links[i].target = IdDict[JSONData.links[i].targetStr];
+    LinkList[[JSONData.links[i].source, JSONData.links[i].target]] = i;
+    LinkList[[JSONData.links[i].target, JSONData.links[i].source]] = i;
   }
   var width = 500,
     height = 450;
@@ -40,7 +50,6 @@ function createTopo(JSONData) {
     .size([width, height]);
 
   function begin(json) {
-    console.log(json);
     force
       .nodes(json.nodes)
       .links(json.links)
@@ -58,7 +67,22 @@ function createTopo(JSONData) {
       .data(json.nodes)
       .enter().append("g")
       .attr("class", "node")
-      .call(force.drag);
+      .call(force.drag)
+      .on('click', function () {
+        var val = this.querySelector('text').textContent;
+        var data = JSONData.nodes[NameDict[val]];
+        for(var i = 0; i < StaticRouteNode.length; i++)
+          if(data.name === StaticRouteNode[i].name) return;
+        if(StaticRouteNode.length > 0){
+          var previous = StaticRouteNode[StaticRouteNode.length - 1];
+          if([NameDict[previous.name], NameDict[val]] in LinkList){
+            StaticRouteNode.push(data);
+          } else return;
+        } else {
+          StaticRouteNode.push(data);
+        }
+        document.getElementById("staticRoute").textContent += (val + ' -> ');
+      });
 
     node.append("circle")
       .attr("r", "5");
@@ -90,4 +114,15 @@ function createTopo(JSONData) {
     });
   }
   begin(JSONData);
+}
+
+function nodes2Links(){
+  StaticRouteLink = [];
+  for(var i = 0 ; i < StaticRouteNode.length - 1; i++){
+    var j = i + 1;
+    var i_index = NameDict[StaticRouteNode[i].name];
+    var j_index = NameDict[StaticRouteNode[j].name];
+    var link_index = LinkList[[i_index, j_index]];
+    StaticRouteLink.push(Topo.links[link_index]);
+  };
 }

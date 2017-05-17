@@ -5,7 +5,7 @@
 function getTypeAndName(varName) {
 
   var isNumber = function (varName) {
-    var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.']
+    var digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
     for(var i = 0; i < varName.length; i++){
       if(! varName[i] in digits) return false;
     }
