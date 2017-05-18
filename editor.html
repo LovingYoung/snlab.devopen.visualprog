@@ -61,6 +61,7 @@
         StaticRouteNode = [];
         var blk = workspace.newBlock("lists_create_with");
         blk.itemCount_ = StaticRouteLink.length;
+        blk.updateShape_();
         for(var i = 0; i < StaticRouteLink.length; i++){
           var txt_i = workspace.newBlock("text");
           txt_i.setFieldValue(StaticRouteLink[i].id, "TEXT");
@@ -76,6 +77,8 @@
 
       function cancal_static_route() {
         $("#confirm_static_route").prop('checked', false);
+        StaticRouteNode = [];
+        document.getElementById("staticRoute").textContent = ("Static Route: ");
       }
     </script>
     <style>
@@ -371,6 +374,7 @@
         </block>
         -->
     </category>
+    <!--
     <category name="Lists" colour="260">
         <block type="lists_create_with">
             <mutation items="0"></mutation>
@@ -421,7 +425,7 @@
             </value>
         </block>
         <block type="lists_sort"></block>
-    </category>
+    </category> -->
     <!--
     <category name="Colour" colour="20">
         <block type="colour_picker"></block>

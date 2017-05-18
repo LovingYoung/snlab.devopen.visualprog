@@ -32,7 +32,9 @@ function createTopo(JSONData) {
     JSONData.links[i].sourceStr = JSONData.links[i].source;
     JSONData.links[i].targetStr = JSONData.links[i].target;
     JSONData.links[i].source = IdDict[JSONData.links[i].sourceStr];
+    if(JSONData.links[i].source === undefined) JSONData.links[i].source = NameDict[JSONData.links[i].sourceStr];
     JSONData.links[i].target = IdDict[JSONData.links[i].targetStr];
+    if(JSONData.links[i].target === undefined) JSONData.links[i].target = NameDict[JSONData.links[i].targetStr];
     LinkList[[JSONData.links[i].source, JSONData.links[i].target]] = i;
     LinkList[[JSONData.links[i].target, JSONData.links[i].source]] = i;
   }
