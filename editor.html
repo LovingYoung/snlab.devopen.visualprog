@@ -64,7 +64,7 @@
         blk.updateShape_();
         for(var i = 0; i < StaticRouteLink.length; i++){
           var txt_i = workspace.newBlock("text");
-          txt_i.setFieldValue(StaticRouteLink[i].id, "TEXT");
+          txt_i.setFieldValue(StaticRouteLink[i], "TEXT");
           txt_i.outputConnection.connect(blk.inputList[i].connection);
         };
 

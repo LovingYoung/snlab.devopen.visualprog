@@ -120,11 +120,23 @@ function createTopo(JSONData) {
 
 function nodes2Links(){
   StaticRouteLink = [];
-  for(var i = 0 ; i < StaticRouteNode.length - 1; i++){
-    var j = i + 1;
-    var i_index = NameDict[StaticRouteNode[i].name];
-    var j_index = NameDict[StaticRouteNode[j].name];
-    var link_index = LinkList[[i_index, j_index]];
-    StaticRouteLink.push(Topo.links[link_index]);
+  for(i = 0 ; i < StaticRouteNode.length - 1; i++){
+    j = i + 1;
+    i_index = NameDict[StaticRouteNode[i].name];
+    j_index = NameDict[StaticRouteNode[j].name];
+    link_index = LinkList[[i_index, j_index]];
+    link = Topo.links[link_index];
+    if(link.sourceStr.startsWith('h')){
+      StaticRouteLink.push(link.targetPort);
+      continue;
+    }
+    if(link.targetStr.startsWith('h')){
+      StaticRouteLink.push(link.sourcePort);
+    }
+    if(link.sourcePort.startsWith(StaticRouteNode[i].deviceId)){
+      StaticRouteLink.push(link.sourcePort);
+    } else {
+      StaticRouteLink.push(link.targetPort);
+    }
   };
 }
