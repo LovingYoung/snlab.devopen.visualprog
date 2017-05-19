@@ -471,10 +471,14 @@
         <block type="network_setRoute"></block>
         <block type="network_IPv4SrcIs"></block>
         <block type="network_IPv4DstIs"></block>
+        <block type="network_TCPSrcPortIs"></block>
+        <block type="network_TCPDstPortIs"></block>
+        <block type="network_PassToNext"></block>
     </category>
     <category name="Network Constants" colour="150">
         <block type="network_static_ip"></block>
         <block type="network_TYPE_IPv4"></block>
+        <block type="network_DROP"></block>
     </category>
     <category name="Network Variables" colour="200">
         <block type="network_ethType"></block>
@@ -608,7 +612,7 @@
     crossOrigin: true,
     dataType: "json",
     contentType: "application/json",
-    url: "http://127.0.0.1:9001/test/network/topology",
+    url: "http://192.168.1.225:9001/test/network/topology",
     success: function (data) {
       createTopo(data);
     }

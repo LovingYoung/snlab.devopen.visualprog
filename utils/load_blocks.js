@@ -28,8 +28,8 @@ functions.network_onPacket = function(){
     "args0": [],
     "message1": "Do %1",
     "args1": [{"type": "input_statement", "name": "DO"}],
-    "message2": "set action %1",
-    "args2": [{"type": "input_value", "name":"ACTION", "check": "Number", "align": "RIGHT"}],
+    // "message2": "set action %1",
+    // "args2": [{"type": "input_value", "name":"ACTION", "check": "Number", "align": "RIGHT"}],
     "colour": 270
   };
   return {
@@ -42,7 +42,7 @@ functions.network_onPacket = function(){
 
 functions.network_IPv4SrcIs = function() {
   var json = {
-    "message0": "IPv4SrcIs %1",
+    "message0": "IPv4 Src is %1",
     "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
     "output": "Boolean",
     "colour": 270
@@ -56,7 +56,7 @@ functions.network_IPv4SrcIs = function() {
 
 functions.network_IPv4DstIs = function () {
   var json = {
-    "message0": "IPv4DstIs %1",
+    "message0": "IPv4 Dst is %1",
     "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
     "output": "Boolean",
     "colour": 270
@@ -75,8 +75,48 @@ functions.network_setRoute = function () {
       "type": "input_value", "name": "Route", "check": "network_route"
     }],
     "colour": 270,
-    "previousStatement": "Action",
-    "nextStatement": "Action"
+    "previousStatement": "Action"
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+functions.network_TCPSrcPortIs = function () {
+  var json = {
+    "message0" : "TCP Src Port is %1",
+    "args0": [{ "type" : "input_value", "name": "Port", "check": "Number" }],
+    "colour": 270,
+    "output": "Boolean"
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+functions.network_TCPDstPortIs = function () {
+  var json = {
+    "message0" : "TCP Dst Port is %1",
+    "args0": [{ "type" : "input_value", "name": "Port", "check": "Number" }],
+    "colour": 270,
+    "output": "Boolean"
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+functions.network_PassToNext = function () {
+  var json = {
+    "message0": "Pass to next",
+    "colour": 270,
+    "previousStatement": "Action"
   };
   return {
     init: function () {
@@ -99,6 +139,19 @@ constants.network_static_ip = function () {
     "output": "IP",
     "colour": "150",
     "inputsInline": true
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+constants.network_DROP = function () {
+  var json = {
+    "message0": "DROP",
+    "output": "network_route",
+    "colour": "150"
   };
   return {
     init: function () {
