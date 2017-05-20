@@ -45,6 +45,7 @@
 
     <!-- custom blocks -->
     <script src="utils/load_blocks.js"></script>
+    <script src="utils/convertInfo.js"></script>
     <script> load_blocks(); </script>
     <script>
       function create_variable() {
@@ -537,7 +538,7 @@
   function get_text() {
     var xml = Blockly.Xml.workspaceToDom(workspace);
     var xml_text = Blockly.Xml.domToPrettyText(xml);
-    return xml_text;
+    return [xml_text, convert_info];
   }
 
   function set_text(text) {
