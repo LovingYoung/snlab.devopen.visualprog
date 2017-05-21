@@ -3,7 +3,6 @@
  */
 
 var convert_info;
-var statement_lines = 0;
 
 /**
  * Change key of info by lineCount
@@ -15,9 +14,8 @@ function infoModify(info, lineCount) {
   var info_new = {};
   var keys = Object.keys(info);
   for(var i = 0; i < keys.length; i++){
-    info_new[parseInt(keys[i]) + lineCount + statement_lines] = info[parseInt(keys[i])];
+    info_new[parseInt(keys[i]) + lineCount] = info[parseInt(keys[i])];
   }
-  statement_lines = 0;
   return info_new;
 }
 

@@ -58,6 +58,8 @@ define ( function (require, exports, module) {
         exec: function (e) {
           //Get the code of generated java code
           var code = container.getElementsByTagName("iframe")[0].contentWindow.get_code();
+          var convertJson = container.getElementsByTagName("iframe")[0].contentWindow.convert_info;
+          convertJson = JSON.stringify(convertJson, null, 2);
           //Get current path
           var currentTab = tabManager.focussedTab;
           if(!currentTab) return;
@@ -68,11 +70,16 @@ define ( function (require, exports, module) {
           //Generate java path
           var dir = require("path").dirname(path);
           var javaPath = dir + '/SDNSolution.java';
+          var jsonPath = dir + '/convert_info.json';
           //Write code to java file
           fs.writeFile(javaPath, code, function (err) {
             if(err) console.log(err);
             else console.log("Write Successfully");
-          })
+          });
+          fs.writeFile(jsonPath, convertJson, function (err) {
+            if(err) console.log(err);
+            else console.log("Write convert info successfully");
+          });
         }
       }, plugin);
 
