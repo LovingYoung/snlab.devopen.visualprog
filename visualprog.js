@@ -31,9 +31,15 @@ define ( function (require, exports, module) {
     function VisualEditor() {
       var plugin = new Editor("snlab.devopen.visualprog", main.consumes, extensions);
 
+      /**
+       * Add new menu items: to generate java code from mapleml
+       */
       menus.addItemByPath("File/Transfer to Java Code", new ui.item({
-        command: "mapleml2Java"
+        command: "mapleml-transferToJava"
       }), 300, plugin);
+      menus.addItemByPath("File/Import Topology", new ui.item({
+        command: "mapleml-importTopology"
+      }), 301, plugin);
 
       //Public API
       plugin.freezePublicAPI({});
@@ -54,7 +60,7 @@ define ( function (require, exports, module) {
        * Add new commands which in use of creating menu item
        */
       commands.addCommand({
-        name: "mapleml2Java",
+        name: "mapleml-transferToJava",
         exec: function (e) {
           //Get the code of generated java code
           var code = container.getElementsByTagName("iframe")[0].contentWindow.get_code();
@@ -84,8 +90,26 @@ define ( function (require, exports, module) {
       }, plugin);
 
       /**
-       * Add new menu items: to generate java code from mapleml
+       * Add new command to import topology from json file
        */
+      commands.addCommand({
+        name: "mapleml-importTopology",
+        exec: function (e) {
+          var currentTab = tabManager.focussedTab;
+          if(!currentTab) return;
+          var path = currentTab.path;
+          if(!path || !path.endsWith('mapleml')) return;
+          var dir = require("path").dirname(path);
+          var topoPath = dir + '/topology.json';
+          var filedata;
+          fs.readFile(topoPath, function (err, data) {
+            if(err) throw err;
+            filedata = JSON.parse(data);
+            container.getElementsByTagName("iframe")[0].contentWindow.createTopo(filedata);
+          })
+        }
+      }, plugin);
+
 
       plugin.on("draw", function (e) {
         container = e.htmlNode;
