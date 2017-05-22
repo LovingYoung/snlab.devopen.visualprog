@@ -639,24 +639,25 @@
 <!--</script>-->
 <!-- d3 -->
 <script src="lib/d3.min.js"></script>
-<!--<script>-->
-    <!--var socket = io("http://" + window.location.hostname + ":9001");-->
-    <!--socket.on("connect", function () {-->
-      <!--console.log("connected");-->
-    <!--});-->
-    <!--socket.on("disconnect", function () {-->
-      <!--console.log('disconnected');-->
-    <!--});-->
-    <!--socket.on("lineNumber", function (msg) {-->
-      <!--if(typeof(msg) === 'string'){-->
-        <!--msg = parseInt(msg);-->
-      <!--}-->
-      <!--var item = convert_info[msg];-->
-      <!--if(item){-->
-        <!--console.log(item.type);-->
-        <!--console.log(item.id);-->
-      <!--}-->
-    <!--});-->
-<!--</script>-->
+<script>
+    var socket = io("http://" + window.location.hostname + ":9001");
+    socket.on("connect", function () {
+      console.log("connected");
+    });
+    socket.on("disconnect", function () {
+      console.log('disconnected');
+    });
+    socket.on("lineNumber", function (msg) {
+      if(typeof(msg) === 'string'){
+        msg = parseInt(msg);
+      }
+      var item = convert_info[msg];
+      if(item){
+        console.log(item.id);
+        var blk = workspace.getBlockById(item.id);
+        blk.select();
+      }
+    });
+</script>
 </body>
 </html>
