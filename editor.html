@@ -612,51 +612,51 @@
     </div>
 </div>
 <script src="utils/render_topology.js"></script>
-<script>
-  var hostname = window.location.hostname;
-  var targeturl = "http://" + hostname + ":9001/test/network/topology";
-  $.ajax({
-    crossOrigin: true,
-    dataType: "json",
-    contentType: "application/json",
-    url: targeturl,
-    success: function (data) {
-      createTopo(data);
-    },
-    error: function (data) {
-      targeturl = "http://" + hostname + ":9002/test/network/topology";
-      $.ajax({
-        crossOrigin: true,
-        dataType: "json",
-        contentType: "application/json",
-        url: targeturl,
-        success: function (data) {
-          createTopo(data)
-        }
-      })
-    }
-  })
-</script>
+<!--<script>-->
+  <!--var hostname = window.location.hostname;-->
+  <!--var targeturl = "http://" + hostname + ":9001/test/network/topology";-->
+  <!--$.ajax({-->
+    <!--crossOrigin: true,-->
+    <!--dataType: "json",-->
+    <!--contentType: "application/json",-->
+    <!--url: targeturl,-->
+    <!--success: function (data) {-->
+      <!--createTopo(data);-->
+    <!--},-->
+    <!--error: function (data) {-->
+      <!--targeturl = "http://" + hostname + ":9002/test/network/topology";-->
+      <!--$.ajax({-->
+        <!--crossOrigin: true,-->
+        <!--dataType: "json",-->
+        <!--contentType: "application/json",-->
+        <!--url: targeturl,-->
+        <!--success: function (data) {-->
+          <!--createTopo(data)-->
+        <!--}-->
+      <!--})-->
+    <!--}-->
+  <!--})-->
+<!--</script>-->
 <!-- d3 -->
 <script src="lib/d3.min.js"></script>
-<script>
-    var socket = io("http://" + window.location.hostname + ":9001");
-    socket.on("connect", function () {
-      console.log("connected");
-    });
-    socket.on("disconnect", function () {
-      console.log('disconnected');
-    });
-    socket.on("lineNumber", function (msg) {
-      if(typeof(msg) === 'string'){
-        msg = parseInt(msg);
-      }
-      var item = convert_info[msg];
-      if(item){
-        console.log(item.type);
-        console.log(item.id);
-      }
-    });
-</script>
+<!--<script>-->
+    <!--var socket = io("http://" + window.location.hostname + ":9001");-->
+    <!--socket.on("connect", function () {-->
+      <!--console.log("connected");-->
+    <!--});-->
+    <!--socket.on("disconnect", function () {-->
+      <!--console.log('disconnected');-->
+    <!--});-->
+    <!--socket.on("lineNumber", function (msg) {-->
+      <!--if(typeof(msg) === 'string'){-->
+        <!--msg = parseInt(msg);-->
+      <!--}-->
+      <!--var item = convert_info[msg];-->
+      <!--if(item){-->
+        <!--console.log(item.type);-->
+        <!--console.log(item.id);-->
+      <!--}-->
+    <!--});-->
+<!--</script>-->
 </body>
 </html>
