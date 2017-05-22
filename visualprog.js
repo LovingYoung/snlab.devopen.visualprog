@@ -127,6 +127,18 @@ define ( function (require, exports, module) {
         session.iframe.src = "/static/plugins/snlab.devopen.visualprog/editor.html";
         session.iframe.style = "width:100%; height:100%;";
         session.insertedIframe = false;
+        session.convertInfo = undefined;
+
+        function loadConvertInfo(){
+          var dir = require("path").dirname(currentPath);
+          var convertInfoPath = dir + '/convert_info.json';
+          fs.readFile(convertInfoPath, function (err, data) {
+            if(err) console.log(err);
+            else{
+              container.getElementsByTagName("iframe")[0].contentWindow.set_convert_info(data);
+            }
+          })
+        }
 
         session.update = function () {
           if(!session.insertedIframe){
@@ -146,6 +158,7 @@ define ( function (require, exports, module) {
             frame.addEventListener("load", function () {
               this.contentWindow.clear_blocks();
               this.contentWindow.set_text(e.value);
+              loadConvertInfo();
             });
             loadedFiles[currentPath] = true;
           }
@@ -193,6 +206,7 @@ define ( function (require, exports, module) {
           if(e.document.editor.type == "visualprog") {
             var path = e.path;
             e.document.value = container.getElementsByTagName("iframe")[0].contentWindow.get_text();
+            loadConvertInfo();
             loadedFiles[path] = false;
             return saveGraph;
           }
