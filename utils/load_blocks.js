@@ -200,3 +200,5 @@ function load_blocks(){
     window[collection_list[i]].load_blocks();
   }
 }
+
+load_blocks();
