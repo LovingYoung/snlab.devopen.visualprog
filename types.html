@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Define Types</title>
+    <script src="lib/blockly/blockly_compressed.js"></script>
+    <script src="lib/blockly/blocks_compressed.js"></script>
+    <script src="lib/blockly/msg/js/en.js"></script>
+
+    <script src="types/load_blocks.js"></script>
+    <link rel="stylesheet" type="text/css" href="utils/css/editor.css">
+</head>
+<body>
+<div id="blocklyDiv" style="height: 100%; width: 100%"></div>
+
+<xml id="toolbox" style="display: none">
+    <category name="primitive">
+        <block type="type_primitive"></block>
+        <block type="type_array"></block>
+    </category>
+    <category name="structure">
+        <block type="type_property"></block>
+        <block type="type_struct"></block>
+    </category>
+</xml>
+
+<script>
+    var workspace = Blockly.inject(blocklyDiv,
+      {
+        media: 'lib/blockly/media/',
+        toolbox: document.getElementById('toolbox'),
+        grid:
+          {
+            spacing: 20,
+            length: 3,
+            color: "#ccc",
+            snap: true
+          },
+        trashcan: true,
+        //horizontalLayout: true
+        zoom:
+          {
+            controls: true,
+            wheel: true,
+            startScale: 1.0,
+            maxScale: 3,
+            minScale: 0.3,
+            scaleSpeed: 1.2
+          }
+      });
+</script>
+</body>
+</html>

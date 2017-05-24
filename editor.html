@@ -55,7 +55,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="#" onclick="$('#TopologyModal').modal()">Show topology</a></li>
-                <li><a href="#">Define Types</a></li>
+                <li><a href="#" onclick="$('#TypeModal').modal()">Define Types</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -121,6 +121,24 @@
                 <div class="form-group">
                     <input type="checkbox" id="confirm_static_route" hidden>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancal_static_route()">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_static_route()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="TypeModal" tabindex="-1" role="dialog" aria-labelledby="TypeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cancal_static_route()"><span aria-hidden="true">x</span></button>
+                <h4 class="modal-title"  id="TypeModalLabel">Type</h4>
+                <label id="TypeDefinition" >Define Types: </label>
+            </div>
+            <div class="modal-body" id="TypeModalBody" style="height: 480px; height: 640px;">
+                <iframe id="typeIframe" src="types.html" style="height: 100%; width: 100%"></iframe>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancal_static_route()">Close</button>
