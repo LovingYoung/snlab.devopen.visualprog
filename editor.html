@@ -143,8 +143,8 @@
                 <iframe id="typeIframe" src="types.html" style="height: 100%; width: 100%"></iframe>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancal_static_route()">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="create_static_route()">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
             </div>
         </div>
     </div>
@@ -159,8 +159,11 @@
 
 <script>
   workspace.addChangeListener(Blockly.Types.typeCallback);
-  var iframe = document.getElementById('typeIframe');
-  Blockly.Types = iframe.contentWindow.Blockly.Types;
+
+  function Merge2Types() {
+    var iframe = document.getElementById('typeIframe');
+    Blockly.Types = iframe.contentWindow.Blockly.Types;
+  }
 </script>
 </body>
 </html>
