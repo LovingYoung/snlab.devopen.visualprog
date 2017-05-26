@@ -18,6 +18,7 @@ function BlockCollections(){
 
 var primitive_types = new BlockCollections();
 var structure = new BlockCollections();
+var generic = new BlockCollections();
 
 primitive_types.type_primitive = function () {
   var json = {
@@ -47,6 +48,46 @@ primitive_types.type_primitive = function () {
 primitive_types.type_array = function () {
   var json = {
     "message0": "array of %1",
+    "args0": [{"type": "input_value", "name": "TYPE", "check": "Type"}],
+    "colour": 250,
+    "output": "Type"
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+primitive_types.type_map = function () {
+  var json = {
+    "message0": "map from %1 to %2",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "TYPE_KEY",
+        "check": "Type"
+      },
+      {
+        "type": "input_value",
+        "name": "TYPE_VALUE",
+        "check": "Type"
+      }
+      ],
+    "colour": 250,
+    "output": "Type",
+    "inputsInline": true
+  };
+  return {
+    init: function () {
+      this.jsonInit(json);
+    }
+  }
+};
+
+primitive_types.type_set = function () {
+  var json = {
+    "message0": "set of %1",
     "args0": [{"type": "input_value", "name": "TYPE", "check": "Type"}],
     "colour": 250,
     "output": "Type"
@@ -100,11 +141,40 @@ structure.type_struct = function () {
   }
 };
 
+generic.type_generic = function () {
+  return{
+    init: function () {
+      this.appendDummyInput('TOPROW')
+        .appendField('', 'NAME');
+      this.setOutput("Type");
+      this.setColour(150);
+    },
+    renameType: function (oldName, newName) {
+      if(Blockly.Names.equals(oldName, this.getTypeName())){
+        this.setFieldValue(newName, 'NAME');
+      }
+    },
+    getTypeName: function () {
+      return this.getFieldValue("NAME");
+    },
+    domToMutation: function (xmlElement) {
+      var name = xmlElement.getAttribute('name');
+      this.renameType(this.getTypeName(), name);
+    },
+    mutationToDom: function () {
+      var container = document.createElement('mutation');
+      container.setAttribute('name', this.getTypeName());
+      return container;
+    }
+  }
+};
+
 
 /* Loading Blocks */
 var collection_list= [
   'primitive_types',
-  'structure'
+  'structure',
+  'generic'
 ];
 
 function load_blocks(){

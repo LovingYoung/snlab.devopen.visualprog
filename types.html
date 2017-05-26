@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Define Types</title>
-    <script src="lib/blockly/blockly_compressed.js"></script>
+    <script src="lib/blockly/blockly_uncompressed.js"></script>
     <script src="lib/blockly/blocks_compressed.js"></script>
     <script src="lib/blockly/msg/js/en.js"></script>
 
@@ -17,11 +17,15 @@
     <category name="primitive">
         <block type="type_primitive"></block>
         <block type="type_array"></block>
+        <block type="type_map"></block>
+        <block type="type_set"></block>
     </category>
     <category name="structure">
         <block type="type_property"></block>
         <block type="type_struct"></block>
     </category>
+    <sep> </sep>
+    <category name="Types" custom="TYPE"></category>
 </xml>
 
 <script>
@@ -48,6 +52,7 @@
             scaleSpeed: 1.2
           }
       });
+    workspace.addChangeListener(Blockly.Types.typeCallback);
 </script>
 </body>
 </html>

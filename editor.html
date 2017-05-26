@@ -45,6 +45,7 @@
 
     <!-- custom blocks -->
     <script src="utils/load_blocks.js"></script>
+    <script src="types/load_blocks.js"></script>
     <script src="utils/convertInfo.js"></script>
 
     <link rel="stylesheet" type="text/css" href="utils/css/editor.css" />
@@ -74,6 +75,7 @@
     <sep></sep>
     <category name="Variables" colour="330" custom="VARIABLE"></category>
     <category name="Functions" colour="290" custom="PROCEDURE"></category>
+    <category name="Types" colour="120" custom="TYPE"></category>
 </xml>
 
 <!-- Modal -->
@@ -154,5 +156,11 @@
 
 <!-- editor.js -->
 <script src="utils/editor.js"></script>
+
+<script>
+  workspace.addChangeListener(Blockly.Types.typeCallback);
+  var iframe = document.getElementById('typeIframe');
+  Blockly.Types = iframe.contentWindow.Blockly.Types;
+</script>
 </body>
 </html>
