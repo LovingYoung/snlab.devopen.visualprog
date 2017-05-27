@@ -100,6 +100,8 @@ function clear_blocks() {
 }
 
 function get_code() {
+  var iframe = document.getElementById("typeIframe");
+  Blockly.Java.buildSkeleton(iframe.contentWindow.workspace);
   return Blockly.Java.workspaceToCode(workspace);
 }
 
