@@ -404,12 +404,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="variable_type">Type: </label>
-                    <select class="form-control" id="variable_type">
-                        <option value="int">Integer</option>
-                        <option value="double">Decimal</option>
-                        <option value="String">String</option>
-                        <option value="String[]">StaticRoute</option>
-                    </select>
+                    <select class="form-control" id="variable_type"> </select>
+                    <label for="variable_subtype" class="hidden" id="variable_subtype_label">of</label>
+                    <select class="form-control hidden" id="variable_subtype"></select>
+                    <label for="variable_subtype_value" class="hidden" id="variable_subtype_value_label">to</label>
+                    <select class="form-control hidden" id="variable_subtype_value"></select>
                 </div>
                 <div class="form-group">
                     <label for="variable_name">Name: </label>

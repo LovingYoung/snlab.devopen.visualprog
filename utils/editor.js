@@ -125,3 +125,23 @@ socket.on("lineNumber", function (msg) {
 });
 
 workspace.addChangeListener(Blockly.Variables.variableCallback);
+
+$("#variable_type").change(function () {
+  var val = $("#variable_type").val();
+  if(val === "MAP"){
+    $("#variable_subtype_value_label").removeClass("hidden");
+    $("#variable_subtype_value").removeClass("hidden");
+    $("#variable_subtype_label").removeClass("hidden");
+    $("#variable_subtype").removeClass("hidden");
+  } else if(val === "SET" || val === "ARRAY"){
+    $("#variable_subtype_label").removeClass("hidden");
+    $("#variable_subtype").removeClass("hidden");
+    $("#variable_subtype_value_label").addClass("hidden");
+    $("#variable_subtype_value").addClass("hidden");
+  } else {
+    $("#variable_subtype_value_label").addClass("hidden");
+    $("#variable_subtype_value").addClass("hidden");
+    $("#variable_subtype_label").addClass("hidden");
+    $("#variable_subtype").addClass("hidden");
+  }
+});
