@@ -123,3 +123,5 @@ socket.on("lineNumber", function (msg) {
     blk.select();
   }
 });
+
+workspace.addChangeListener(Blockly.Variables.variableCallback);

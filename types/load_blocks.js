@@ -146,7 +146,7 @@ generic.type_generic = function () {
     init: function () {
       this.appendDummyInput('TOPROW')
         .appendField('', 'NAME');
-      this.setOutput("Type");
+      this.setOutput(true, "Type");
       this.setColour(150);
     },
     renameType: function (oldName, newName) {
