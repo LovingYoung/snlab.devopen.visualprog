@@ -11,6 +11,8 @@ function cancal_variable() {
 
 function create_static_route() {
   $("#confirm_static_route").prop('checked', true);
+  document.getElementById("staticRoute").textContent = ("Static Route: ");
+  if(StaticRouteNode.length <= 0) return;
   nodes2Links();
   StaticRouteNode = [];
   var blk = workspace.newBlock("lists_create_with");
@@ -26,7 +28,6 @@ function create_static_route() {
   workspace.clear();
   set_text(txt);
   StaticRouteLink = [];
-  document.getElementById("staticRoute").textContent = ("Static Route: ");
 }
 
 function cancal_static_route() {
