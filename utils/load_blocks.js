@@ -72,7 +72,7 @@ functions.network_setRoute = function () {
   var json = {
     "message0": "Set Action %1",
     "args0": [{
-      "type": "input_value", "name": "Route", "check": "network_route"
+      "type": "input_value", "name": "Route", "check": "ArrayList<String>"
     }],
     "colour": 270,
     "previousStatement": "Action"
@@ -150,7 +150,7 @@ constants.network_static_ip = function () {
 constants.network_DROP = function () {
   var json = {
     "message0": "DROP",
-    "output": "network_route",
+    "output": "ArrayList<String>",
     "colour": "150"
   };
   return {
