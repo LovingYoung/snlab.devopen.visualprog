@@ -134,7 +134,7 @@ $("#variable_type").change(function () {
     $("#variable_subtype_value").removeClass("hidden");
     $("#variable_subtype_label").removeClass("hidden");
     $("#variable_subtype").removeClass("hidden");
-  } else if(val === "SET" || val === "ARRAY"){
+  } else if(val === "SET" || val === "ARRAY" || val == "LIST"){
     $("#variable_subtype_label").removeClass("hidden");
     $("#variable_subtype").removeClass("hidden");
     $("#variable_subtype_value_label").addClass("hidden");

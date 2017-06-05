@@ -43,7 +43,7 @@ functions.network_onPacket = function(){
 functions.network_IPv4SrcIs = function() {
   var json = {
     "message0": "IPv4 Src is %1",
-    "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
+    "args0": [{"type": "input_value", "name": "IP", "check": "int"}],
     "output": "Boolean",
     "colour": 270
   };
@@ -57,7 +57,7 @@ functions.network_IPv4SrcIs = function() {
 functions.network_IPv4DstIs = function () {
   var json = {
     "message0": "IPv4 Dst is %1",
-    "args0": [{"type": "input_value", "name": "IP", "check": "IP"}],
+    "args0": [{"type": "input_value", "name": "IP", "check": "int"}],
     "output": "Boolean",
     "colour": 270
   };
@@ -72,7 +72,7 @@ functions.network_setRoute = function () {
   var json = {
     "message0": "Set Action %1",
     "args0": [{
-      "type": "input_value", "name": "Route", "check": "ArrayList<String>"
+      "type": "input_value", "name": "Route", "check": "String[]"
     }],
     "colour": 270,
     "previousStatement": "Action"
@@ -87,7 +87,7 @@ functions.network_setRoute = function () {
 functions.network_TCPSrcPortIs = function () {
   var json = {
     "message0" : "TCP Src Port is %1",
-    "args0": [{ "type" : "input_value", "name": "Port", "check": "Number" }],
+    "args0": [{ "type" : "input_value", "name": "Port", "check": ["int", "Number"] }],
     "colour": 270,
     "output": "Boolean"
   };
@@ -101,7 +101,7 @@ functions.network_TCPSrcPortIs = function () {
 functions.network_TCPDstPortIs = function () {
   var json = {
     "message0" : "TCP Dst Port is %1",
-    "args0": [{ "type" : "input_value", "name": "Port", "check": "Number" }],
+    "args0": [{ "type" : "input_value", "name": "Port", "check": ["int", "Number"] }],
     "colour": 270,
     "output": "Boolean"
   };
@@ -136,7 +136,7 @@ constants.network_static_ip = function () {
       {"type": "field_number", "name": "IP_3", "check": "Number"},
       {"type": "field_number", "name": "IP_4", "check": "Number"}
     ],
-    "output": "IP",
+    "output": "int",
     "colour": "150",
     "inputsInline": true
   };
@@ -150,7 +150,7 @@ constants.network_static_ip = function () {
 constants.network_DROP = function () {
   var json = {
     "message0": "DROP",
-    "output": "ArrayList<String>",
+    "output": "String[]",
     "colour": "150"
   };
   return {
